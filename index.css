@@ -280,4 +280,3 @@ a:hover { text-decoration: underline; }
   .filter-group select, .filter-group input[type="date"], .btn-primary { width: 100%; }
   .match-teams { flex-direction: column; gap: 16px; }
 }
-
