@@ -1,11 +1,393 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Full Stack Project</title>
-  </head>
-  <body>
-    <!-- You code goes here-->
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FootballPulse — Live Soccer Data</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">⚽</span>
+        <span class="logo-text">Football<em>Pulse</em></span>
+      </div>
+      <nav class="main-nav">
+        <span class="nav-link active" data-section="matches">Matches</span>
+        <span class="nav-link" data-section="standings">Standings</span>
+        <span class="nav-link" data-section="teams">Teams</span>
+        <span class="nav-link" data-section="players">Players</span>
+        <span class="nav-link" data-section="favorites">⭐ Favorites</span>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-icon" title="Search">🔍</button>
+        <button class="btn-primary">Sign In</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ LIVE TICKER (static placeholder) ══ -->
+  <div class="live-ticker">
+    <span class="ticker-label">LIVE</span>
+    <div class="ticker-track">
+      Arsenal 2–1 Chelsea · 67' &nbsp;|&nbsp;
+      Man City 1–1 Liverpool · 45' &nbsp;|&nbsp;
+      Barcelona 3–0 Real Madrid · FT &nbsp;|&nbsp;
+      Bayern 2–2 Dortmund · 78' &nbsp;|&nbsp;
+      PSG 1–0 Marseille · 30' &nbsp;|&nbsp;
+      Arsenal 2–1 Chelsea · 67' &nbsp;|&nbsp;
+      Man City 1–1 Liverpool · 45' &nbsp;|&nbsp;
+      Barcelona 3–0 Real Madrid · FT &nbsp;|&nbsp;
+      Bayern 2–2 Dortmund · 78' &nbsp;|&nbsp;
+      PSG 1–0 Marseille · 30'
+    </div>
+  </div>
+
+  <!-- ══ FILTERS BAR ══ -->
+  <div class="filters-bar">
+    <div class="filters-inner">
+      <div class="filter-group">
+        <label for="leagueSelect">League</label>
+        <select id="leagueSelect">
+          <option value="39">Premier League</option>
+          <option value="140">La Liga</option>
+          <option value="78">Bundesliga</option>
+          <option value="135">Serie A</option>
+          <option value="61">Ligue 1</option>
+          <option value="2">Champions League</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="seasonSelect">Season</label>
+        <select id="seasonSelect">
+          <option value="2024">2024/25</option>
+          <option value="2023">2023/24</option>
+          <option value="2022">2022/23</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="dateInput">Date</label>
+        <input type="date" id="dateInput">
+      </div>
+      <button class="btn-primary" id="fetchBtn">Load Data</button>
+    </div>
+  </div>
+
+  <!-- ══ MAIN CONTENT ══ -->
+  <main class="site-main">
+
+    <!-- ── MATCHES SECTION ── -->
+    <section class="content-section active" id="section-matches">
+      <div class="section-header">
+        <h2 class="section-title">Today's Matches</h2>
+        <div class="section-tabs">
+          <button class="tab active">Today</button>
+          <button class="tab">Upcoming</button>
+          <button class="tab">Results</button>
+        </div>
+      </div>
+
+      <!-- Static placeholder notice -->
+      <div class="placeholder-notice">
+        <strong>📡 API not connected yet</strong> — static placeholder data shown below. Connect API in Draft 3.
+      </div>
+
+      <!-- Static placeholder match cards -->
+      <div class="matches-grid" id="fixtures-container">
+        <!-- Placeholder card 1 (LIVE) -->
+        <div class="match-card" data-status="live">
+          <div class="match-league">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League — GW 32</div>
+          <div class="match-teams">
+            <div class="team">
+              <img src="https://media.api-sports.io/football/teams/42.png" class="team-logo" alt="Arsenal">
+              <span class="team-name">Arsenal</span>
+            </div>
+            <div class="match-score">
+              <div class="score-row">
+                <span class="score-value">2</span>
+                <span class="score-sep">–</span>
+                <span class="score-value">1</span>
+              </div>
+              <span class="live-badge">LIVE 67'</span>
+            </div>
+            <div class="team away">
+              <img src="https://media.api-sports.io/football/teams/49.png" class="team-logo" alt="Chelsea">
+              <span class="team-name">Chelsea</span>
+            </div>
+          </div>
+          <div class="match-meta">
+            <span>🏟 Emirates Stadium</span>
+            <button class="btn-fav">☆ Save</button>
+          </div>
+        </div>
+
+        <!-- Placeholder card 2 (LIVE) -->
+        <div class="match-card" data-status="live">
+          <div class="match-league">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League — GW 32</div>
+          <div class="match-teams">
+            <div class="team">
+              <img src="https://media.api-sports.io/football/teams/50.png" class="team-logo" alt="Man City">
+              <span class="team-name">Man City</span>
+            </div>
+            <div class="match-score">
+              <div class="score-row">
+                <span class="score-value">1</span>
+                <span class="score-sep">–</span>
+                <span class="score-value">1</span>
+              </div>
+              <span class="live-badge">LIVE 45'</span>
+            </div>
+            <div class="team away">
+              <img src="https://media.api-sports.io/football/teams/40.png" class="team-logo" alt="Liverpool">
+              <span class="team-name">Liverpool</span>
+            </div>
+          </div>
+          <div class="match-meta">
+            <span>🏟 Etihad Stadium</span>
+            <button class="btn-fav">☆ Save</button>
+          </div>
+        </div>
+
+        <!-- Placeholder card 3 (upcoming) -->
+        <div class="match-card" data-status="upcoming">
+          <div class="match-league">🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League — GW 32</div>
+          <div class="match-teams">
+            <div class="team">
+              <img src="https://media.api-sports.io/football/teams/34.png" class="team-logo" alt="Newcastle">
+              <span class="team-name">Newcastle</span>
+            </div>
+            <div class="match-score">
+              <span class="kickoff-time">20:00</span>
+            </div>
+            <div class="team away">
+              <img src="https://media.api-sports.io/football/teams/39.png" class="team-logo" alt="Wolves">
+              <span class="team-name">Wolves</span>
+            </div>
+          </div>
+          <div class="match-meta">
+            <span>🏟 St. James' Park</span>
+            <button class="btn-fav">☆ Save</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── STANDINGS SECTION ── -->
+    <section class="content-section" id="section-standings">
+      <div class="section-header">
+        <h2 class="section-title">Standings</h2>
+      </div>
+
+      <div class="placeholder-notice">
+        <strong>📡 API not connected yet</strong> — static placeholder data shown below. Connect API in Draft 3.
+      </div>
+
+      <div class="table-wrapper">
+        <table class="standings-table">
+          <thead>
+            <tr>
+              <th>#</th><th>Club</th><th>P</th><th>W</th><th>D</th>
+              <th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th><th>Form</th>
+            </tr>
+          </thead>
+          <tbody id="standings-container">
+            <!-- Static placeholder rows -->
+            <tr class="standing-row champions">
+              <td class="pos">1</td>
+              <td class="club"><img src="https://media.api-sports.io/football/teams/42.png" alt="Arsenal"> Arsenal</td>
+              <td>32</td><td>21</td><td>9</td><td>2</td><td>72</td><td>28</td><td>+44</td>
+              <td class="pts">72</td>
+              <td><div class="form"><span class="form-w">W</span><span class="form-w">W</span><span class="form-d">D</span><span class="form-w">W</span><span class="form-w">W</span></div></td>
+            </tr>
+            <tr class="standing-row champions">
+              <td class="pos">2</td>
+              <td class="club"><img src="https://media.api-sports.io/football/teams/40.png" alt="Liverpool"> Liverpool</td>
+              <td>32</td><td>20</td><td>9</td><td>3</td><td>68</td><td>30</td><td>+38</td>
+              <td class="pts">69</td>
+              <td><div class="form"><span class="form-w">W</span><span class="form-l">L</span><span class="form-w">W</span><span class="form-w">W</span><span class="form-d">D</span></div></td>
+            </tr>
+            <tr class="standing-row champions">
+              <td class="pos">3</td>
+              <td class="club"><img src="https://media.api-sports.io/football/teams/50.png" alt="Man City"> Man City</td>
+              <td>32</td><td>18</td><td>8</td><td>6</td><td>60</td><td>38</td><td>+22</td>
+              <td class="pts">62</td>
+              <td><div class="form"><span class="form-d">D</span><span class="form-w">W</span><span class="form-w">W</span><span class="form-l">L</span><span class="form-w">W</span></div></td>
+            </tr>
+            <tr class="standing-row champions">
+              <td class="pos">4</td>
+              <td class="club"><img src="https://media.api-sports.io/football/teams/49.png" alt="Chelsea"> Chelsea</td>
+              <td>32</td><td>17</td><td>7</td><td>8</td><td>55</td><td>40</td><td>+15</td>
+              <td class="pts">58</td>
+              <td><div class="form"><span class="form-w">W</span><span class="form-w">W</span><span class="form-d">D</span><span class="form-w">W</span><span class="form-l">L</span></div></td>
+            </tr>
+            <tr class="standing-row">
+              <td class="pos">5</td>
+              <td class="club"><img src="https://media.api-sports.io/football/teams/47.png" alt="Tottenham"> Tottenham</td>
+              <td>32</td><td>15</td><td>6</td><td>11</td><td>50</td><td>45</td><td>+5</td>
+              <td class="pts">51</td>
+              <td><div class="form"><span class="form-l">L</span><span class="form-w">W</span><span class="form-d">D</span><span class="form-w">W</span><span class="form-l">L</span></div></td>
+            </tr>
+            <tr class="standing-row relegation">
+              <td class="pos">18</td>
+              <td class="club"><img src="https://media.api-sports.io/football/teams/57.png" alt="Ipswich"> Ipswich</td>
+              <td>32</td><td>4</td><td>10</td><td>18</td><td>22</td><td>55</td><td>-33</td>
+              <td class="pts">22</td>
+              <td><div class="form"><span class="form-l">L</span><span class="form-l">L</span><span class="form-d">D</span><span class="form-l">L</span><span class="form-l">L</span></div></td>
+            </tr>
+            <tr class="standing-row relegation">
+              <td class="pos">19</td>
+              <td class="club"><img src="https://media.api-sports.io/football/teams/41.png" alt="Southampton"> Southampton</td>
+              <td>32</td><td>3</td><td>9</td><td>20</td><td>18</td><td>58</td><td>-40</td>
+              <td class="pts">18</td>
+              <td><div class="form"><span class="form-l">L</span><span class="form-d">D</span><span class="form-l">L</span><span class="form-l">L</span><span class="form-l">L</span></div></td>
+            </tr>
+            <tr class="standing-row relegation">
+              <td class="pos">20</td>
+              <td class="club"><img src="https://media.api-sports.io/football/teams/46.png" alt="Leicester"> Leicester</td>
+              <td>32</td><td>2</td><td>9</td><td>21</td><td>15</td><td>65</td><td>-50</td>
+              <td class="pts">15</td>
+              <td><div class="form"><span class="form-l">L</span><span class="form-l">L</span><span class="form-l">L</span><span class="form-d">D</span><span class="form-l">L</span></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-legend">
+        <div class="leg champions">Champions League</div>
+        <div class="leg relegation">Relegation</div>
+      </div>
+    </section>
+
+    <!-- ── TEAMS SECTION ── -->
+    <section class="content-section" id="section-teams">
+      <div class="section-header">
+        <h2 class="section-title">Teams</h2>
+        <input type="text" class="inline-search" id="teamSearch" placeholder="Search teams…">
+      </div>
+
+      <div class="placeholder-notice">
+        <strong>📡 API not connected yet</strong> — static placeholder data shown below. Connect API in Draft 3.
+      </div>
+
+      <div class="teams-grid" id="teams-container">
+        <div class="team-card">
+          <img src="https://media.api-sports.io/football/teams/42.png" alt="Arsenal">
+          <h3>Arsenal</h3><p>London, England</p>
+        </div>
+        <div class="team-card">
+          <img src="https://media.api-sports.io/football/teams/40.png" alt="Liverpool">
+          <h3>Liverpool</h3><p>Liverpool, England</p>
+        </div>
+        <div class="team-card">
+          <img src="https://media.api-sports.io/football/teams/50.png" alt="Man City">
+          <h3>Man City</h3><p>Manchester, England</p>
+        </div>
+        <div class="team-card">
+          <img src="https://media.api-sports.io/football/teams/49.png" alt="Chelsea">
+          <h3>Chelsea</h3><p>London, England</p>
+        </div>
+        <div class="team-card">
+          <img src="https://media.api-sports.io/football/teams/33.png" alt="Man United">
+          <h3>Man United</h3><p>Manchester, England</p>
+        </div>
+        <div class="team-card">
+          <img src="https://media.api-sports.io/football/teams/47.png" alt="Tottenham">
+          <h3>Tottenham</h3><p>London, England</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PLAYERS SECTION ── -->
+    <section class="content-section" id="section-players">
+      <div class="section-header">
+        <h2 class="section-title">Top Scorers</h2>
+        <input type="text" class="inline-search" id="playerSearch" placeholder="Search players…">
+      </div>
+
+      <div class="placeholder-notice">
+        <strong>📡 API not connected yet</strong> — static placeholder data shown below. Connect API in Draft 3.
+      </div>
+
+      <div class="players-list" id="players-container">
+        <div class="player-row">
+          <span class="player-rank">1</span>
+          <img class="player-avatar" src="https://media.api-sports.io/football/players/1100.png" alt="Haaland">
+          <div class="player-info">
+            <strong>Erling Haaland</strong>
+            <span>Manchester City · Norway</span>
+          </div>
+          <div class="player-stats">
+            <div class="stat-pill"><span>Goals</span><strong>24</strong></div>
+            <div class="stat-pill"><span>Assists</span><strong>5</strong></div>
+            <div class="stat-pill"><span>Rating</span><strong>8.2</strong></div>
+          </div>
+        </div>
+        <div class="player-row">
+          <span class="player-rank">2</span>
+          <img class="player-avatar" src="https://media.api-sports.io/football/players/47.png" alt="Salah">
+          <div class="player-info">
+            <strong>Mohamed Salah</strong>
+            <span>Liverpool · Egypt</span>
+          </div>
+          <div class="player-stats">
+            <div class="stat-pill"><span>Goals</span><strong>21</strong></div>
+            <div class="stat-pill"><span>Assists</span><strong>12</strong></div>
+            <div class="stat-pill"><span>Rating</span><strong>8.0</strong></div>
+          </div>
+        </div>
+        <div class="player-row">
+          <span class="player-rank">3</span>
+          <img class="player-avatar" src="https://media.api-sports.io/football/players/2295.png" alt="Isak">
+          <div class="player-info">
+            <strong>Alexander Isak</strong>
+            <span>Newcastle · Sweden</span>
+          </div>
+          <div class="player-stats">
+            <div class="stat-pill"><span>Goals</span><strong>19</strong></div>
+            <div class="stat-pill"><span>Assists</span><strong>4</strong></div>
+            <div class="stat-pill"><span>Rating</span><strong>7.8</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── FAVORITES SECTION (placeholder) ── -->
+    <section class="content-section" id="section-favorites">
+      <div class="section-header">
+        <h2 class="section-title">My Favorites</h2>
+      </div>
+      <div class="placeholder-notice">
+        <strong>⭐ Favorites coming in Draft 4</strong> — localStorage integration will be added in Step 5.
+        Click the ☆ Save button on any match to add it here.
+      </div>
+      <!-- This div will be populated by localStorage in Draft 4 -->
+      <div id="favorites-container"></div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="logo">
+        <span class="logo-icon">⚽</span>
+        <span class="logo-text small">Football<em>Pulse</em></span>
+      </div>
+      <p>Powered by <strong>API-Football</strong> via RapidAPI</p>
+      <div class="api-note">
+        ℹ️ <strong>Setup:</strong> Replace <code>YOUR_API_KEY</code> in <code>index.js</code> with your
+        <a href="https://rapidapi.com/api-sports/api/api-football" target="_blank">RapidAPI key</a>.
+        Free tier: 100 requests/day.
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS will be added in Draft 3 -->
+
+</body>
 </html>
