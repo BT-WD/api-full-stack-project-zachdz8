@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FootballPulse — Live Soccer Data</title>
+<title>FootballPulse — Live Soccer Data | Database Integration</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -356,16 +356,13 @@
       </div>
     </section>
 
-    <!-- ── FAVORITES SECTION (placeholder) ── -->
+    <!-- ── FAVORITES SECTION ── -->
     <section class="content-section" id="section-favorites">
       <div class="section-header">
         <h2 class="section-title">My Favorites</h2>
+        <div class="db-badge">💾 localStorage</div>
       </div>
-      <div class="placeholder-notice">
-        <strong>⭐ Favorites coming in Draft 4</strong> — localStorage integration will be added in Step 5.
-        Click the ☆ Save button on any match to add it here.
-      </div>
-      <!-- This div will be populated by localStorage in Draft 4 -->
+      <!-- Populated by localStorage via renderFavorites() in app.js -->
       <div id="favorites-container"></div>
     </section>
 
@@ -387,7 +384,7 @@
     </div>
   </footer>
 
-  <!-- DRAFT 3: Async JS & API Calls -->
+  <!-- Database Integration: localStorage read/write via app.js -->
   <script src="app.js"></script>
 
 </body>

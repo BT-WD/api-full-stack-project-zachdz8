@@ -280,3 +280,63 @@ a:hover { text-decoration: underline; }
   .filter-group select, .filter-group input[type="date"], .btn-primary { width: 100%; }
   .match-teams { flex-direction: column; gap: 16px; }
 }
+
+/* ══════════════════════════════════════════════
+   Step 5: Database Integration — new styles
+   ══════════════════════════════════════════════ */
+
+/* localStorage badge in section header */
+.db-badge {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,230,118,0.1);
+  border: 1px solid rgba(0,230,118,0.25);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+/* Stats bar at top of Favorites */
+.db-stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  margin-bottom: 24px;
+  font-family: var(--font-head);
+  font-size: 15px;
+  letter-spacing: .04em;
+}
+.db-stat { color: var(--text-dim); }
+.db-stat strong { color: var(--accent); margin-right: 4px; }
+.db-stat-storage {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Clear All button */
+.btn-clear-all {
+  background: transparent;
+  border: 1px solid rgba(255,23,68,0.35);
+  color: #ff5252;
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+.btn-clear-all:hover {
+  background: rgba(255,23,68,0.15);
+  color: #ff1744;
+}
